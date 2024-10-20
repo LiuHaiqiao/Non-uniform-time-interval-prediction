@@ -132,14 +132,14 @@ class Exp_prediction(object):
 
         self.model.eval()
         with torch.no_grad():
-            for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(test_loader):
+            for i, (batch_x, batch_x_mark, batch_y, batch_y_mark) in enumerate(test_loader):
                 batch_x = batch_x.float().to(self.device)
                 batch_y = batch_y.float().to(self.device)
                 batch_x_mark = batch_x_mark.float().to(self.device)
                 batch_y_mark = batch_y_mark.float().to(self.device)
                 output = self.model(batch_x, batch_x_mark, batch_y, batch_y_mark)
-                true = batch_y.detach().cpu().numpy()
-                pred = output.detach().cpu().numpy()
+                true = batch_y.squeeze(0).detach().cpu().numpy()
+                pred = output.squeeze(0).detach().cpu().numpy()
                 preds.append(pred)
                 trues.append(true)
                 if i % 100 == 0:

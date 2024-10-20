@@ -42,7 +42,8 @@ if __name__ == '__main__':
 
     print('Args in exeriment:\n', args)
     for ii in range(args.itr):
-        setting = 'ed{}_nh{}_el{}_dl{}_{}'.format(
+        setting = 'bs{}_ed{}_nh{}_el{}_dl{}_{}'.format(
+            args.batch_size,
                 args.emb_dim,
                 args.n_heads,
                 args.e_layers,

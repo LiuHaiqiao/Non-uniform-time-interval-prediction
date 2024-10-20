@@ -77,7 +77,7 @@ def sample_sliding_window(input, window_size=200, step_size=100):
         window = input[:, start_idx:end_idx]
         sampled_windows.append(window)
     return np.array(sampled_windows)
-def generate_sample(data, index, samples=100):
+def generate_sample(data, index, samples=200):
     full_range = list(range(index - 30, index))
     combinations = [sorted(random.sample(full_range, 20) + [index]) for _ in range(samples)]
     dates = []
@@ -93,13 +93,14 @@ def generate_sample(data, index, samples=100):
 
     return dates, values
 
-def visual(true, preds=None, name='./pic/test.pdf'):
+def visual(true, pred=None, name='./pic/test.pdf'):
     plt.figure()
     plt.plot(true, label='GroundTruth', linewidth=2)
-    if preds is not None:
-        plt.plot(preds, label='Prediction', linewidth=2)
+    if pred is not None:
+        plt.plot(pred, label='Prediction', linewidth=2)
     plt.legend()
     plt.savefig(name, bbox_inches='tight')
+    plt.close()
 
 import numpy as np
 

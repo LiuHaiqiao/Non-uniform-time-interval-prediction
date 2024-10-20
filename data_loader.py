@@ -82,3 +82,24 @@ def data_provider(args, flag):
         drop_last=drop_last
     )
     return data_set, data_loader
+
+
+
+if __name__ == '__main__':
+  data_set = Dataset_custom(file_path='Profile_10.csv', start_idx=30, train_idx=33, vali_idx=32, test_idx=34, flag='train')
+  data_loader = DataLoader(
+      data_set,
+      batch_size=1,
+      shuffle=True,
+      num_workers=3,
+      drop_last=True
+  )
+  model = Model(emb_dim=512, n_heads=4, e_layers=1, d_layers=1, dropout=0.1)
+  for i, (batch_x, batch_y, batch_x_mark, batch_y_mark) in enumerate(data_loader):
+      batch_x = batch_x.float()
+      batch_y = batch_y.float()
+      batch_x_mark = batch_x_mark.float()
+      batch_y_mark = batch_y_mark.float()
+      print(batch_x.shape, batch_x_mark.shape, batch_y.shape, batch_y_mark.shape)
+      output = model(batch_x,batch_x_mark, batch_y, batch_y_mark)
+      print(output.shape)

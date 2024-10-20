@@ -22,5 +22,5 @@ class Model(nn.Module):
         encoder_output = self.encoder(history_input) # seq_len, batch_size, emb_dim
         decoder_ouput = self.decoder(dec_input, encoder_output) # 1, batch_size, emb_dim
         output = self.projection(decoder_ouput.squeeze(0)) # batch_size, c_in
-
-        return output  # [batch_size, c_in]
+        output = output.unsqueeze(1)
+        return output  # [batch_size, 1 , c_in]
